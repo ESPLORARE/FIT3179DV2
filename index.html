@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>MYS Crude Exports 2023</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MYS Crude Oil Exports 2023</title>
+
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+
+  <script defer src="vega_lite_vis.js"></script>
+
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; }
+    #bar_chart { max-width: 1100px; margin: 24px auto; }
+  </style>
 </head>
 <body>
-  <h1>Malaysia Crude Oil Exports 2023</h1>
-  <div id="map"></div>
-
-  <script>
-    vegaEmbed("#map", "specs/mys_crude_exports_2023_map.vg.json").catch(console.error);
-  </script>
+  <h1 style="text-align:center;">Malaysia Crude Oil Exports (HS 270900), 2023</h1>
+  <div id="export_map"></div> 
 </body>
 </html>
