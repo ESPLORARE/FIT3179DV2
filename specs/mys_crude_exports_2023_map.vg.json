@@ -1,7 +1,7 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 1100,
-  "height": 560,
+  "width": 1000,
+  "height": 520,
   "title": {
     "text": "Malaysia Crude Oil Exports by Country (HS 270900), 2023",
     "subtitle": "Size = Trade Value (thousand USD) · Color = Quantity (kg)"
@@ -10,7 +10,7 @@
   "layer": [
     {
       "data": { "graticule": { "step": [30, 30] } },
-      "mark": { "type": "geoshape", "stroke": "#cbd5e1", "strokeWidth": 0.6 }
+      "mark": { "type": "geoshape", "stroke": "#dbe3ef", "strokeWidth": 0.7 }
     },
     {
       "data": {
@@ -22,9 +22,7 @@
     {
       "data": { "url": "mys_crude_exports_2023.csv" },
       "transform": [
-        {
-          "filter": "datum.partner && datum.partner !== 'World' && datum.partner !== 'Other Asia, nes'"
-        },
+        { "filter": "datum.partner && datum.partner !== 'World' && datum.partner !== 'Other Asia, nes'" },
         { "filter": "isValid(datum.trade_value_1000usd) && datum.trade_value_1000usd > 0" },
         { "filter": "isValid(datum.quantity_kg) && datum.quantity_kg > 0" },
         {
@@ -55,7 +53,7 @@
         },
         { "filter": "isValid(datum.lon) && isValid(datum.lat)" }
       ],
-      "mark": { "type": "circle", "opacity": 0.85, "tooltip": {"content": "data"} },
+      "mark": { "type": "circle", "opacity": 0.85 },
       "encoding": {
         "longitude": { "field": "lon", "type": "quantitative" },
         "latitude": { "field": "lat", "type": "quantitative" },
@@ -63,7 +61,7 @@
           "field": "trade_value_1000usd",
           "type": "quantitative",
           "title": "Value (thousand USD)",
-          "scale": { "type": "sqrt", "range": [30, 500] }
+          "scale": { "type": "sqrt", "range": [30, 900] }
         },
         "color": {
           "field": "quantity_kg",
@@ -72,7 +70,7 @@
           "scale": { "scheme": "blues" }
         },
         "tooltip": [
-          { "field": "partner", "title": "Partner" },
+          { "field": "partner", "title": "Country" },
           { "field": "trade_value_1000usd", "title": "Value (k USD)", "format": "," },
           { "field": "quantity_kg", "title": "Quantity (kg)", "format": "," }
         ]
