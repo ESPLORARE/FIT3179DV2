@@ -1,0 +1,55 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 900,
+  "height": 420,
+  "title": {
+    "text": "Malaysia Crude Oil Imports vs Exports (2012–2023)",
+    "subtitle": "Source: ESPLORARE/FIT3179DV2",
+    "anchor": "start"
+  },
+  "data": {
+    "url": "https://raw.githubusercontent.com/ESPLORARE/FIT3179DV2/refs/heads/main/malaysia_crude_oil_imports_exports_2012_2023.csv"
+  },
+  "transform": [
+    {"fold": ["Imports", "Exports"], "as": ["Flow", "Value"]},
+    {"calculate": "toNumber(datum.Year)", "as": "YearNum"}
+  ],
+  "encoding": {
+    "x": {"field": "YearNum", "type": "temporal", "timeUnit": "year", "title": "Year"},
+    "y": {"field": "Value", "type": "quantitative", "title": "Million barrels", "stack": null},
+    "color": {
+      "field": "Flow",
+      "type": "nominal",
+      "scale": {"range": ["#1f77b4", "#e15759"]},
+      "title": null
+    },
+    "tooltip": [
+      {"field": "Year", "title": "Year"},
+      {"field": "Flow", "title": "Flow"},
+      {"field": "Value", "title": "Value (million bbl)", "format": ".3f"}
+    ]
+  },
+  "layer": [
+    {
+      "mark": {"type": "area", "opacity": 0.25, "interpolate": "monotone"}
+    },
+    {
+      "mark": {"type": "line", "strokeWidth": 2, "interpolate": "monotone"}
+    },
+    {
+      "selection": {"hover": {"type": "single", "on": "pointerover", "nearest": true, "empty": "none"}},
+      "mark": {"type": "point", "filled": true, "size": 60},
+      "encoding": {"opacity": {"condition": {"param": "hover", "value": 1}, "value": 0}}
+    },
+    {
+      "transform": [{"pivot": "Flow", "value": "Value", "groupby": ["Year", "YearNum"]}],
+      "mark": {"type": "rule", "color": "#999"},
+      "encoding": {
+        "x": {"field": "YearNum", "type": "temporal", "timeUnit": "year"},
+        "opacity": {"condition": {"param": "hover", "value": 0.8}, "value": 0}
+      }
+    }
+  ],
+  "config": {"view": {"stroke": null}, "axis": {"grid": true, "tickBand": "extent"}}
+}
+
